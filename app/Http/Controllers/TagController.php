@@ -44,14 +44,14 @@ class TagController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified tag.
      *
-     * @param  int  $id
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tag $tag)
     {
-        //
+        return new TagResource($tag);
     }
 
     /**
