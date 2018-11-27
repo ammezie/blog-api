@@ -55,15 +55,17 @@ class TagController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified tag in the database.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $tag->update($request->only(['name', 'description']));
+
+        return new TagResource($tag);
     }
 
     /**
