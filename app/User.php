@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -27,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Retrieve all the posts created by this user.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
