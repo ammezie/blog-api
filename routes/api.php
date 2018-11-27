@@ -15,3 +15,4 @@ Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
 Route::apiResource('tags', 'TagController');
+Route::apiResource('posts', 'PostController');
