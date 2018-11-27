@@ -10,13 +10,13 @@ use App\Http\Resources\TagResource;
 class TagController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of tags.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return TagResource::collection(Tag::paginate(25));
     }
 
     /**
