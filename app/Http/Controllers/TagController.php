@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AuthController;
+use Illuminate\Validation\Rule;
 use App\Http\Resources\TagResource;
+use App\Http\Controllers\AuthController;
 
 class TagController extends Controller
 {
@@ -63,6 +64,15 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        // validate inputs
+        $validatedData = $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('tags')->ignore($tag->id),
+            ],
+            'description' => 'required',
+        ]);
+
         $tag->update($request->only(['name', 'description']));
 
         return new TagResource($tag);
