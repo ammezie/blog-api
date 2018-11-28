@@ -11,13 +11,14 @@ use App\Http\Resources\CommentResource;
 class CommentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of comments for the specified post.
      *
+     * @param \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+        return CommentResource::collection($post->comments()->paginate(25));
     }
 
     /**
