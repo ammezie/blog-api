@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    protected $hidden = ['pivot'];
+
     /**
      * The attributes that are mass assignable.
      *

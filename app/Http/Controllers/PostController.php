@@ -88,7 +88,7 @@ class PostController extends Controller
         ]);
 
         // check if currently authenticated user is the author of the post
-        if ($request->user()->id !== $post->user_id) {
+        if ($request->user()->id != $post->user_id) {
             return response()->json([
                 'error' => 'You can only edit your own posts.'
             ], 403);
