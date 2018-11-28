@@ -73,7 +73,11 @@ class TagController extends Controller
             'description' => 'required',
         ]);
 
-        $tag->update($request->only(['name', 'description']));
+        $tag->update([
+            'name' => $validatedData['name'],
+            'slug' => str_slug($validatedData['name']),
+            'description' => $validatedData['description'],
+        ]);
 
         return new TagResource($tag);
     }
