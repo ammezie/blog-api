@@ -42,14 +42,24 @@ class CommentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified comment in the database
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post, Comment $comment)
     {
-        //
+        // validate inputs
+        $validatedData = $request->validate([
+            'comment' => 'required',
+        ]);
+
+        $comment->comment = $validatedData['comment'];
+
+        $post->comments()->save($comment);
+
+        return new CommentResource($comment);
     }
 }
