@@ -46,7 +46,7 @@ class PostController extends Controller
         ]);
 
         // attach tags to the post
-        $post->tags()->toggle($validatedData['tags']);
+        $post->tags()->attach($validatedData['tags']);
 
         return new PostResource($post);
     }
