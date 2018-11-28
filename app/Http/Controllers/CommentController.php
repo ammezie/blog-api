@@ -10,6 +10,11 @@ use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth:api')->except(['index']);
+    }
+
     /**
      * Display a list of comments for the specified post.
      *
