@@ -16,3 +16,5 @@ Route::post('login', 'AuthController@login');
 
 Route::apiResource('tags', 'TagController');
 Route::apiResource('posts', 'PostController');
+Route::resource('posts.comments', 'CommentController')
+    ->only(['index', 'store', 'update']);
