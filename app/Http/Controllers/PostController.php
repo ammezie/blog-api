@@ -10,13 +10,13 @@ use App\Http\Controllers\Controller;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of posts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return PostResource::collection(Post::latest()->paginate(25));
     }
 
     /**
