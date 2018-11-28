@@ -82,6 +82,13 @@ class PostController extends Controller
             'tags' => 'required',
         ]);
 
+        // check if currently authenticated user is the author of the post
+        if ($request->user()->id !== $post->user_id) {
+            return response()->json([
+                'error' => 'You can only edit your own posts.'
+            ], 403);
+        }
+
         // update post
         $post->update([
             'title' => $validatedData['title'],
