@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Resources\PostResource;
 use App\Http\Controllers\Controller;
 
@@ -62,15 +63,37 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified post in the database.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // validate inputs
+        $validatedData = $request->validate([
+            'title' => [
+                'required',
+                Rule::unique('posts')->ignore($post->id)
+            ],
+            'content' => 'required',
+            'status' => 'required',
+            'tags' => 'required',
+        ]);
+
+        // update post
+        $post->update([
+            'title' => $validatedData['title'],
+            'slug' => str_slug($validatedData['title']),
+            'content' => $validatedData['content'],
+            'status' => !!$validatedData['status'],
+        ]);
+
+        // attach tags to the post
+        $post->tags()->sync($validatedData['tags']);
+
+        return new PostResource($post);
     }
 
     /**
